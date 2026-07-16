@@ -849,7 +849,7 @@
             Help us improve internal tools, processes and workplace experience.
             Clear, constructive feedback reaches the right team faster.
           </p>
-          <form class="form" id="form" novalidate enctype="multipart/form-data">
+          <form class="form" id="form" novalidate>
             <section class="section">
               <h2 class="section-title">What kind of feedback is this?</h2>
               <div class="chips" id="typeChips">
@@ -1386,87 +1386,30 @@
 
           submit.disabled = true;
           submit.classList.add("loading");
-          buttonText.textContent = "Sending feedback...";
+          buttonText.textContent = "Submitting feedback...";
           buttonIcon.style.display = "none";
 
-          const formData = new FormData();
+          // Demo mode: no email or server request is made.
+          await new Promise((resolve) => setTimeout(resolve, 1200));
 
-          formData.append(
-            "type",
-            $('input[name="type"]:checked')?.value || "Other",
-          );
-          formData.append("anonymous", anonymous.checked ? "1" : "0");
-          formData.append("department", department.value);
-          formData.append("feedback", feedback.value.trim());
+          submit.classList.remove("loading");
+          submit.classList.add("success");
+          buttonText.textContent = "Done";
+          buttonIcon.style.display = "block";
+          buttonIcon.innerHTML = '<path d="m5 12 4 4L19 6"/>';
 
-          if (!anonymous.checked) {
-            formData.append("name", controls.name.value.trim());
-            formData.append("email", controls.email.value.trim());
-          }
+          localStorage.removeItem("internalFeedbackDraft");
 
-          files.forEach((file) => {
-            formData.append("attachments[]", file, file.name);
-          });
+          await new Promise((resolve) => setTimeout(resolve, 500));
 
-          try {
-            const response = await fetch("send-feedback.php", {
-              method: "POST",
-              body: formData,
-              headers: {
-                Accept: "application/json",
-              },
-            });
+          $("#successText").textContent = anonymous.checked
+            ? "Thank you. Your anonymous feedback has been submitted."
+            : "Thank you. Your feedback has been submitted successfully.";
 
-            let result;
-
-            try {
-              result = await response.json();
-            } catch {
-              throw new Error(
-                "The server returned an invalid response. Please check the PHP configuration.",
-              );
-            }
-
-            if (!response.ok || !result.success) {
-              throw new Error(
-                result.message || "The feedback could not be sent.",
-              );
-            }
-
-            submit.classList.remove("loading");
-            submit.classList.add("success");
-            buttonText.textContent = "Done";
-            buttonIcon.style.display = "block";
-            buttonIcon.innerHTML = '<path d="m5 12 4 4L19 6"/>';
-
-            localStorage.removeItem("internalFeedbackDraft");
-
-            await new Promise((resolve) => setTimeout(resolve, 500));
-
-            $("#successText").textContent = anonymous.checked
-              ? "Thank you. Your anonymous feedback has been sent successfully."
-              : result.confirmation_sent
-                ? "Thank you. Your feedback has been sent and a confirmation email is on its way."
-                : "Thank you. Your feedback has been sent successfully.";
-
-            formView.style.display = "none";
-            successPanel.classList.remove("active");
-            void successPanel.offsetWidth;
-            successPanel.classList.add("active");
-          } catch (error) {
-            submit.disabled = false;
-            submit.classList.remove("loading", "success");
-            buttonText.textContent = "Submit feedback";
-            buttonIcon.style.display = "block";
-            buttonIcon.innerHTML =
-              '<path d="m5 12 14 0M13 6l6 6-6 6"/>';
-
-            alert(
-              error instanceof Error
-                ? error.message
-                : "The feedback could not be sent. Please try again.",
-            );
-          }
+          formView.style.display = "none";
+          successPanel.classList.remove("active");
+          void successPanel.offsetWidth;
+          successPanel.classList.add("active");
         }
 
         form.addEventListener("submit", (e) => {
