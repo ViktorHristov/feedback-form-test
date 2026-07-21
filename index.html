@@ -832,6 +832,364 @@
           transition-duration: 0.01ms !important;
         }
       }
+
+      .form-spaced {
+        margin-top: 28px;
+      }
+
+      .section-reveal {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.38s ease,
+          transform 0.38s ease;
+      }
+
+      .section-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .anonymous-status {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        margin-top: 8px;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: var(--primarySoft);
+        color: var(--primary2);
+        font-size: 11px;
+        font-weight: 700;
+        transition: var(--ease);
+      }
+
+      .anonymous-status.active {
+        background: var(--successSoft);
+        color: var(--success);
+      }
+
+      .routing-note {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 40px;
+        margin-top: -8px;
+        padding: 10px 13px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--solid);
+        color: var(--muted);
+        font-size: 12px;
+        transition: var(--ease);
+      }
+
+      .routing-dot {
+        width: 9px;
+        height: 9px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: #94a3b8;
+        box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.12);
+      }
+
+      .routing-note[data-team="Scripting"] .routing-dot {
+        background: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+
+      .routing-note[data-team="QA"] .routing-dot {
+        background: #0d9f6e;
+        box-shadow: 0 0 0 4px rgba(13, 159, 110, 0.12);
+      }
+
+      .routing-note[data-team="COPS"] .routing-dot {
+        background: #d97706;
+        box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
+      }
+
+      .routing-note[data-team="DP"] .routing-dot {
+        background: #7c3aed;
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+      }
+
+      .counter-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+      }
+
+      #detailLevel {
+        color: var(--warning);
+        font-weight: 700;
+      }
+
+      #detailLevel.good {
+        color: var(--success);
+      }
+
+      .upload-illustration {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 10px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--primarySoft);
+        color: var(--primary);
+      }
+
+      .upload-illustration svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .upload-message {
+        min-height: 18px;
+        margin-top: 7px;
+        color: var(--danger);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .file-item {
+        animation: fileIn 0.25s ease both;
+      }
+
+      @keyframes fileIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px) scale(0.98);
+        }
+      }
+
+      .draft-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 20px;
+        margin-top: 2px;
+      }
+
+      .draft-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #94a3b8;
+        transition: var(--ease);
+      }
+
+      .draft-status.saving .draft-dot {
+        background: var(--warning);
+        animation: pulseDot 0.9s infinite;
+      }
+
+      .draft-status.saved .draft-dot {
+        background: var(--success);
+      }
+
+      @keyframes pulseDot {
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      .success-illustration {
+        width: 112px;
+        margin: 0 auto 18px;
+        color: var(--success);
+        opacity: 0;
+        transform: translateY(10px);
+        animation: successIllustrationIn 0.55s 0.35s ease forwards;
+      }
+
+      .success-illustration svg {
+        width: 100%;
+        height: auto;
+      }
+
+      @keyframes successIllustrationIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success-route {
+        width: fit-content;
+        max-width: 100%;
+        margin: 18px auto 0;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--primarySoft);
+        color: var(--primary2);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .review-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        display: none;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .review-modal.open {
+        display: grid;
+      }
+
+      .review-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 13, 28, 0.52);
+        backdrop-filter: blur(8px);
+        animation: fadeIn 0.2s ease both;
+      }
+
+      .review-dialog {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 520px);
+        padding: 30px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: var(--solid);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+        animation: reviewIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+      }
+
+      @keyframes reviewIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.98);
+        }
+      }
+
+      .review-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--primarySoft);
+        color: var(--text);
+        font-size: 22px;
+        cursor: pointer;
+      }
+
+      .review-icon {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--successSoft);
+        color: var(--success);
+        font-size: 22px;
+        font-weight: 800;
+      }
+
+      .review-dialog h2 {
+        margin: 18px 0 8px;
+        font-size: 26px;
+        letter-spacing: -0.03em;
+      }
+
+      .review-intro {
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+
+      .review-list {
+        display: grid;
+        margin: 0;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .review-list > div {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 16px;
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .review-list > div:last-child {
+        border-bottom: 0;
+      }
+
+      .review-list dt {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .review-list dd {
+        margin: 0;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+
+      .review-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .secondary-btn,
+      .primary-btn {
+        min-height: 48px;
+        border-radius: 14px;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .secondary-btn {
+        border: 1px solid var(--border);
+        background: var(--solid);
+        color: var(--text);
+      }
+
+      .primary-btn {
+        border: 0;
+        background: linear-gradient(135deg, #174fc9, #2c73ee 58%, #4a8df6);
+        color: #fff;
+      }
+
+      @media (max-width: 520px) {
+        .review-list > div {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+
+        .review-actions {
+          grid-template-columns: 1fr;
+        }
+
+        .counter-wrap {
+          align-items: flex-end;
+          flex-direction: column;
+          gap: 3px;
+        }
+      }
+
     </style>
   </head>
   <body>
@@ -849,11 +1207,14 @@
             Help us improve our workplace experience.
             Clear, constructive feedback reaches the right team faster.
           </p>
-          <form class="form" id="form" novalidate style="margin-top:28px;">
-                        <div class="switch-row">
+          <form class="form form-spaced" id="form" novalidate>
+                        <div class="switch-row section-reveal" data-animate-section>
               <div class="switch-copy">
-                <strong>Submit anonymously</strong
-                ><small>Your name and email will not be stored.</small>
+                <strong>Submit anonymously</strong>
+                <small>Your name and email will not be stored.</small>
+                <span class="anonymous-status" id="anonymousStatus" aria-live="polite">
+                  Identified submission
+                </span>
               </div>
               <label class="switch"
                 ><input id="anonymous" type="checkbox" /><span
@@ -861,7 +1222,7 @@
                 ></span
               ></label>
             </div>
-            <div class="identity-wrap" id="identityWrap">
+            <div class="identity-wrap section-reveal" id="identityWrap" data-animate-section>
               <div class="grid2">
                 <div class="field" data-field="name">
                   <div class="field-shell">
@@ -917,7 +1278,7 @@
                 </div>
               </div>
             </div>
-            <div class="field" data-field="department">
+            <div class="field section-reveal" data-field="department" data-animate-section>
               <div class="field-shell">
                 <select class="field-control" id="department" name="department">
                   <option value="" selected disabled></option>
@@ -951,7 +1312,14 @@
               </div>
             </div>
 
-            <div class="field" data-field="feedback">
+            <div class="routing-note" id="routingNote" aria-live="polite">
+              <span class="routing-dot" aria-hidden="true"></span>
+              <span id="routingText">
+                Select a department to see where the feedback will be routed.
+              </span>
+            </div>
+
+            <div class="field section-reveal" data-field="feedback" data-animate-section>
               <div class="field-shell">
                 <textarea
                   class="field-control"
@@ -978,11 +1346,14 @@
                 <span class="message" id="feedbackHint"
                   >Tell us what happened, what you expected, and what could
                   improve.</span
-                ><span id="counter">0 / 1000</span>
+                ><span class="counter-wrap">
+                  <span id="detailLevel">Add a little more detail</span>
+                  <span id="counter">0 / 1000</span>
+                </span>
               </div>
             </div>
 
-            <section>
+            <section class="section-reveal" data-animate-section>
               <h2 class="section-title">Optional screenshot or file</h2>
               <div class="dropzone" id="dropzone">
                 <input
@@ -990,13 +1361,22 @@
                   type="file"
                   accept="image/*,.pdf"
                   multiple
-                /><strong>Drop files here or browse</strong
-                ><small>PNG, JPG or PDF · maximum 5 MB each</small>
+                />
+                <div class="upload-illustration" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 16V4"></path>
+                    <path d="m7 9 5-5 5 5"></path>
+                    <path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path>
+                  </svg>
+                </div>
+                <strong>Drop screenshots here or browse files</strong>
+                <small>PNG, JPG or PDF · maximum 5 uploads · 5 MB each</small>
               </div>
+              <div class="upload-message" id="uploadMessage" aria-live="polite"></div>
               <div class="file-list" id="fileList"></div>
             </section>
 
-            <div class="submit-wrap">
+            <div class="submit-wrap section-reveal" data-animate-section>
               <button class="submit" id="submit" type="submit">
                 <span class="btn-content"
                   ><span class="spinner"></span
@@ -1030,7 +1410,10 @@
                 this browser.</span
               >
             </p>
-            <div class="draft-status" id="draftStatus" aria-live="polite"></div>
+            <div class="draft-status" id="draftStatus" aria-live="polite">
+              <span class="draft-dot" aria-hidden="true"></span>
+              <span id="draftStatusText">No unsaved changes</span>
+            </div>
           </form>
         </div>
         <div class="success-panel" id="successPanel" aria-live="polite">
@@ -1057,8 +1440,16 @@
                 <path d="m5 12 4 4L19 6" />
               </svg>
             </div>
-            <h2>Feedback submitted</h2>
+            <div class="success-illustration" aria-hidden="true">
+              <svg viewBox="0 0 80 60" fill="none">
+                <rect x="8" y="10" width="64" height="40" rx="12" stroke="currentColor" stroke-width="2"></rect>
+                <path d="M22 25h36M22 34h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                <path d="m49 42 5 5 10-12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h2 id="successTitle">Feedback submitted</h2>
             <p id="successText">Thank you for helping us improve.</p>
+            <div class="success-route" id="successRoute"></div>
             <button class="new-btn" id="newBtn" type="button">
               Submit another response
             </button>
@@ -1066,34 +1457,86 @@
         </div>
       </section>
     </main>
+
+    <div class="review-modal" id="reviewModal" aria-hidden="true">
+      <div class="review-backdrop" data-close-review></div>
+      <section class="review-dialog" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+        <button class="review-close" type="button" aria-label="Close review" data-close-review>×</button>
+        <div class="review-icon" aria-hidden="true">✓</div>
+        <h2 id="reviewTitle">Review your feedback</h2>
+        <p class="review-intro">Check the details before submitting.</p>
+
+        <dl class="review-list">
+          <div>
+            <dt>Department</dt>
+            <dd id="reviewDepartment">—</dd>
+          </div>
+          <div>
+            <dt>Submission</dt>
+            <dd id="reviewAnonymous">—</dd>
+          </div>
+          <div>
+            <dt>Attachments</dt>
+            <dd id="reviewAttachments">0</dd>
+          </div>
+          <div>
+            <dt>Feedback</dt>
+            <dd id="reviewFeedback">—</dd>
+          </div>
+        </dl>
+
+        <div class="review-actions">
+          <button class="secondary-btn" id="reviewBack" type="button">Back</button>
+          <button class="primary-btn" id="reviewConfirm" type="button">Submit feedback</button>
+        </div>
+      </section>
+    </div>
+
     <script>
       (() => {
-        const $ = (s) => document.querySelector(s),
-          $$ = (s) => [...document.querySelectorAll(s)];
-        const loader = $("#loader"),
-          form = $("#form"),
-          formView = $("#formView"),
-          successPanel = $("#successPanel"),
-          submit = $("#submit"),
-          buttonText = $("#buttonText"),
-          buttonIcon = $("#buttonIcon"),
-          anonymous = $("#anonymous"),
-          identityWrap = $("#identityWrap"),
-          feedback = $("#feedback"),
-          counter = $("#counter"),
-          department = $("#department"),
-          draftStatus = $("#draftStatus"),
-          fileInput = $("#fileInput"),
-          fileList = $("#fileList"),
-          dropzone = $("#dropzone");
-        let files = [],
-          placeholderTimer;
+        const $ = (selector) => document.querySelector(selector);
+        const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+        const loader = $("#loader");
+        const form = $("#form");
+        const formView = $("#formView");
+        const successPanel = $("#successPanel");
+        const submit = $("#submit");
+        const buttonText = $("#buttonText");
+        const buttonIcon = $("#buttonIcon");
+        const anonymous = $("#anonymous");
+        const anonymousStatus = $("#anonymousStatus");
+        const identityWrap = $("#identityWrap");
+        const feedback = $("#feedback");
+        const counter = $("#counter");
+        const detailLevel = $("#detailLevel");
+        const department = $("#department");
+        const routingNote = $("#routingNote");
+        const routingText = $("#routingText");
+        const draftStatus = $("#draftStatus");
+        const draftStatusText = $("#draftStatusText");
+        const fileInput = $("#fileInput");
+        const fileList = $("#fileList");
+        const dropzone = $("#dropzone");
+        const uploadMessage = $("#uploadMessage");
+        const reviewModal = $("#reviewModal");
+        const reviewConfirm = $("#reviewConfirm");
+        const reviewBack = $("#reviewBack");
+
+        const MAX_UPLOADS = 5;
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+        let files = [];
+        let draftTimer;
+        let pendingSubmission = false;
+
         const controls = {
           name: $("#name"),
           email: $("#email"),
           department,
           feedback,
         };
+
         const defaults = {
           name: "Use your full name.",
           email: "Use your company email.",
@@ -1101,226 +1544,335 @@
           feedback:
             "Tell us what happened, what you expected, and what could improve.",
         };
-        const ok = {
+
+        const validMessages = {
           name: "Name looks good.",
           email: "Email address is valid.",
           department: "Department selected.",
           feedback: "Feedback is ready to submit.",
         };
+
         const icons = {
-          ok: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7"><path d="m5 12 4 4L19 6"/></svg>',
-          bad: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+          valid:
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7"><path d="m5 12 4 4L19 6"/></svg>',
+          invalid:
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>',
         };
-        const validate = {
-          name: (v) =>
-            anonymous.checked
+
+        const validators = {
+          name(value) {
+            if (anonymous.checked) return "";
+
+            const trimmed = value.trim();
+
+            if (!trimmed) return "Please enter your name.";
+            if (trimmed.length < 2) {
+              return "Your name must contain at least 2 characters.";
+            }
+            if (!/^[\p{L}][\p{L}\p{M}'’\-\s.]*$/u.test(trimmed)) {
+              return "Use letters, spaces, apostrophes or hyphens only.";
+            }
+
+            return "";
+          },
+
+          email(value) {
+            if (anonymous.checked) return "";
+
+            const trimmed = value.trim();
+
+            if (!trimmed) return "Please enter your work email.";
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) {
+              return "Enter a valid work email address.";
+            }
+
+            return "";
+          },
+
+          department(value) {
+            return value
               ? ""
-              : !v.trim()
-                ? "Please enter your name."
-                : v.trim().length < 2
-                  ? "Name must contain at least 2 characters."
-                  : !/^[\p{L}][\p{L}\p{M}'’\-\s.]*$/u.test(v.trim())
-                    ? "Use letters, spaces, apostrophes or hyphens only."
-                    : "",
-          email: (v) =>
-            anonymous.checked
-              ? ""
-              : !v.trim()
-                ? "Please enter your email address."
-                : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())
-                  ? "Enter a valid email address."
-                  : "",
-          department: (v) => (!v ? "Please select your department." : ""),
-          feedback: (v) => {
-            const t = v.trim();
-            if (!t) return "Please enter your feedback.";
-            if (t.length < 15)
-              return `Please add ${15 - t.length} more character${15 - t.length === 1 ? "" : "s"}.`;
-            if (/^(.)\1{7,}$/i.test(t.replace(/\s/g, "")))
+              : "Please choose the department receiving this feedback.";
+          },
+
+          feedback(value) {
+            const trimmed = value.trim();
+
+            if (!trimmed) return "Please describe your feedback.";
+
+            if (trimmed.length < 15) {
+              const remaining = 15 - trimmed.length;
+              return `Please add ${remaining} more character${
+                remaining === 1 ? "" : "s"
+              }.`;
+            }
+
+            if (/^(.)\1{7,}$/i.test(trimmed.replace(/\s/g, ""))) {
               return "Please provide more descriptive feedback.";
+            }
+
             return "";
           },
         };
-        function field(name) {
+
+        function getField(name) {
           return form.querySelector(`[data-field="${name}"]`);
         }
-        function setState(name, neutral = false) {
-          const c = controls[name],
-            f = field(name),
-            m = f.querySelector(".message"),
-            s = f.querySelector(".status"),
-            err = validate[name](c.value),
-            has = (c.value || "").trim().length > 0;
-          f.classList.remove("valid", "invalid");
-          s.innerHTML = "";
-          c.removeAttribute("aria-invalid");
-          if (!has && neutral) {
-            m.textContent = defaults[name];
+
+        function setFieldState(name, neutral = false) {
+          const control = controls[name];
+          const field = getField(name);
+          const message = field.querySelector(".message");
+          const status = field.querySelector(".status");
+          const error = validators[name](control.value);
+          const hasValue = (control.value || "").trim().length > 0;
+
+          field.classList.remove("valid", "invalid");
+          status.innerHTML = "";
+          control.removeAttribute("aria-invalid");
+
+          if (!hasValue && neutral) {
+            message.textContent = defaults[name];
             return false;
           }
-          if (err) {
-            f.classList.add("invalid");
-            m.textContent = err;
-            s.innerHTML = icons.bad;
-            c.setAttribute("aria-invalid", "true");
+
+          if (error) {
+            field.classList.add("invalid");
+            message.textContent = error;
+            status.innerHTML = icons.invalid;
+            control.setAttribute("aria-invalid", "true");
             return false;
           }
-          f.classList.add("valid");
-          m.textContent = ok[name];
-          s.innerHTML = icons.ok;
+
+          field.classList.add("valid");
+          message.textContent = validMessages[name];
+          status.innerHTML = icons.valid;
+
           return true;
         }
-        function resize() {
+
+        function resizeFeedback() {
           feedback.style.height = "180px";
           feedback.style.height =
             Math.min(Math.max(feedback.scrollHeight, 180), 420) + "px";
         }
-        
-        function save() {
-          const data = {
-            type: $('input[name="type"]:checked')?.value,
+
+        function updateDetailLevel() {
+          const length = feedback.value.trim().length;
+
+          detailLevel.classList.remove("good");
+
+          if (length < 15) {
+            detailLevel.textContent = "Add a little more detail";
+          } else if (length < 80) {
+            detailLevel.textContent = "Good start";
+          } else {
+            detailLevel.textContent = "Good level of detail";
+            detailLevel.classList.add("good");
+          }
+        }
+
+        function setDraftState(state, text) {
+          draftStatus.classList.remove("saving", "saved");
+
+          if (state) {
+            draftStatus.classList.add(state);
+          }
+
+          draftStatusText.textContent = text;
+        }
+
+        function saveDraft() {
+          setDraftState("saving", "Saving draft…");
+
+          const draft = {
             anonymous: anonymous.checked,
             name: controls.name.value,
             email: controls.email.value,
             department: department.value,
             feedback: feedback.value,
           };
-          localStorage.setItem("internalFeedbackDraft", JSON.stringify(data));
-          draftStatus.textContent = "Draft saved locally";
-          clearTimeout(save.t);
-          save.t = setTimeout(() => (draftStatus.textContent = ""), 1600);
+
+          localStorage.setItem("internalFeedbackDraft", JSON.stringify(draft));
+
+          clearTimeout(draftTimer);
+
+          draftTimer = setTimeout(() => {
+            setDraftState("saved", "Draft saved just now");
+          }, 450);
         }
-        function load() {
+
+        function loadDraft() {
           try {
-            const d = JSON.parse(
+            const draft = JSON.parse(
               localStorage.getItem("internalFeedbackDraft") || "null",
             );
-            if (!d) return;
-            const type = $(`input[name="type"][value="${d.type}"]`);
-            if (type) type.checked = true;
-            anonymous.checked = !!d.anonymous;
-            controls.name.value = d.name || "";
-            controls.email.value = d.email || "";
-            department.value = d.department || "";
-            feedback.value = d.feedback || "";
-            syncType();
-            syncAnon();
-            department.classList.toggle("has-value", !!department.value);
-            counter.textContent = feedback.value.length + " / 1000";
-            resize();
-            draftStatus.textContent = "Draft restored";
-          } catch (e) {}
-        }
-        function syncType() {}
-        function syncAnon() {
-          identityWrap.classList.toggle("hidden", anonymous.checked);
-          controls.name.disabled = anonymous.checked;
-          controls.email.disabled = anonymous.checked;
-          ["name", "email"].forEach((n) =>
-            field(n).classList.remove("valid", "invalid"),
-          );
-        }
-        Object.entries(controls).forEach(([name, c]) => {
-          c.addEventListener("input", () => {
-            if (c.dataset.touched === "true" || c.value.trim())
-              setState(name, true);
-            if (name === "feedback") {
-              counter.textContent = c.value.length + " / 1000";
-              resize();
-              }
-            save();
-          });
-          c.addEventListener("blur", () => {
-            c.dataset.touched = "true";
-            setState(name, true);
-          });
-          c.addEventListener("change", () => {
-            if (name === "department")
-              c.classList.toggle("has-value", !!c.value);
-            c.dataset.touched = "true";
-            setState(name, true);
-            save();
-          });
-        });
-        $$('input[name="type"]').forEach((i) =>
-          i.addEventListener("change", () => {
-            syncType();
-            save();
-          }),
-        );
-        anonymous.addEventListener("change", () => {
-          syncAnon();
-          save();
-        });
-        $$("input,textarea,select")
-          .filter((x) => !Object.values(controls).includes(x))
-          .forEach((x) => x.addEventListener("input", save));
-        const hints = [
-          "Tell us what happened, what you expected, and what could improve.",
-          "Describe the situation and its impact.",
-          "Share an idea that would make the process easier.",
-        ];
-        let hintIndex = 0;
-        placeholderTimer = setInterval(() => {
-          if (!feedback.value) {
-            hintIndex = (hintIndex + 1) % hints.length;
-            $("#feedbackHint").animate([{ opacity: 0 }, { opacity: 1 }], {
-              duration: 350,
-            });
-            $("#feedbackHint").textContent = hints[hintIndex];
+
+            if (!draft) {
+              setDraftState("", "No unsaved changes");
+              return;
+            }
+
+            anonymous.checked = Boolean(draft.anonymous);
+            controls.name.value = draft.name || "";
+            controls.email.value = draft.email || "";
+            department.value = draft.department || "";
+            feedback.value = draft.feedback || "";
+
+            syncAnonymous();
+            updateDepartmentRouting();
+            department.classList.toggle("has-value", Boolean(department.value));
+            counter.textContent = `${feedback.value.length} / 1000`;
+
+            resizeFeedback();
+            updateDetailLevel();
+            setDraftState("saved", "Draft restored");
+          } catch {
+            setDraftState("", "No unsaved changes");
           }
-        }, 3500);
-        function addFiles(list) {
-          [...list].forEach((file) => {
-            if (file.size > 5 * 1024 * 1024)
-              return alert(`${file.name} is larger than 5 MB.`);
-            files.push(file);
+        }
+
+        function syncAnonymous() {
+          const isAnonymous = anonymous.checked;
+
+          identityWrap.classList.toggle("hidden", isAnonymous);
+          controls.name.disabled = isAnonymous;
+          controls.email.disabled = isAnonymous;
+
+          anonymousStatus.textContent = isAnonymous
+            ? "Anonymous mode enabled"
+            : "Identified submission";
+
+          anonymousStatus.classList.toggle("active", isAnonymous);
+
+          ["name", "email"].forEach((name) => {
+            getField(name).classList.remove("valid", "invalid");
           });
+        }
+
+        function updateDepartmentRouting() {
+          const team = department.value;
+          routingNote.dataset.team = team || "";
+
+          const routes = {
+            Scripting: "This feedback will be routed to the Scripting team.",
+            QA: "This feedback will be routed to the QA team.",
+            COPS: "This feedback will be routed to the COPS team.",
+            DP: "This feedback will be routed to the DP team.",
+          };
+
+          routingText.textContent =
+            routes[team] ||
+            "Select a department to see where the feedback will be routed.";
+        }
+
+        function revealSections() {
+          $$("[data-animate-section]").forEach((section, index) => {
+            setTimeout(() => {
+              section.classList.add("visible");
+            }, 90 * index);
+          });
+        }
+
+        function showUploadMessage(message = "") {
+          uploadMessage.textContent = message;
+        }
+
+        function addFiles(fileCollection) {
+          showUploadMessage("");
+
+          const incomingFiles = [...fileCollection];
+
+          if (files.length >= MAX_UPLOADS) {
+            showUploadMessage("You can attach a maximum of 5 uploads.");
+            fileInput.value = "";
+            return;
+          }
+
+          const remainingSlots = MAX_UPLOADS - files.length;
+
+          if (incomingFiles.length > remainingSlots) {
+            showUploadMessage(
+              `Only ${remainingSlots} more upload${
+                remainingSlots === 1 ? "" : "s"
+              } can be added.`,
+            );
+          }
+
+          incomingFiles.slice(0, remainingSlots).forEach((file) => {
+            if (file.size > MAX_FILE_SIZE) {
+              showUploadMessage(`${file.name} is larger than 5 MB.`);
+              return;
+            }
+
+            const duplicate = files.some(
+              (existingFile) =>
+                existingFile.name === file.name &&
+                existingFile.size === file.size,
+            );
+
+            if (!duplicate) {
+              files.push(file);
+            }
+          });
+
+          fileInput.value = "";
           renderFiles();
         }
+
         function renderFiles() {
           fileList.innerHTML = "";
-          files.forEach((file, i) => {
+
+          files.forEach((file, index) => {
             const item = document.createElement("div");
             item.className = "file-item";
-            const img = document.createElement("img");
-            img.className = "file-thumb";
-            img.alt = "File preview";
-            if (file.type.startsWith("image/"))
-              img.src = URL.createObjectURL(file);
+
+            if (file.type.startsWith("image/")) {
+              const image = document.createElement("img");
+              image.className = "file-thumb";
+              image.alt = `Preview of ${file.name}`;
+              image.src = URL.createObjectURL(file);
+              item.append(image);
+            } else {
+              const preview = document.createElement("div");
+              preview.className = "file-thumb";
+              preview.textContent = "PDF";
+              preview.style.display = "grid";
+              preview.style.placeItems = "center";
+              preview.style.fontSize = "10px";
+              preview.style.fontWeight = "800";
+              preview.style.color = "var(--primary)";
+              item.append(preview);
+            }
+
             const copy = document.createElement("div");
             copy.className = "file-copy";
-            copy.innerHTML = `<strong>${file.name.replace(/[<>]/g, "")}</strong><small>${(file.size / 1024).toFixed(0)} KB · ready</small>`;
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "remove-file";
-            btn.textContent = "×";
-            btn.addEventListener("click", () => {
-              files.splice(i, 1);
+
+            const safeName = file.name.replace(/[<>]/g, "");
+
+            copy.innerHTML = `
+              <strong>${safeName}</strong>
+              <small>${(file.size / 1024).toFixed(0)} KB · ready</small>
+            `;
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.className = "remove-file";
+            removeButton.setAttribute("aria-label", `Remove ${safeName}`);
+            removeButton.textContent = "×";
+
+            removeButton.addEventListener("click", () => {
+              files.splice(index, 1);
+              showUploadMessage("");
               renderFiles();
             });
-            item.append(img, copy, btn);
+
+            item.append(copy, removeButton);
             fileList.append(item);
           });
         }
-        fileInput.addEventListener("change", (e) => addFiles(e.target.files));
-        ["dragenter", "dragover"].forEach((ev) =>
-          dropzone.addEventListener(ev, (e) => {
-            e.preventDefault();
-            dropzone.classList.add("drag");
-          }),
-        );
-        ["dragleave", "drop"].forEach((ev) =>
-          dropzone.addEventListener(ev, (e) => {
-            e.preventDefault();
-            dropzone.classList.remove("drag");
-          }),
-        );
-        dropzone.addEventListener("drop", (e) =>
-          addFiles(e.dataTransfer.files),
-        );
 
-        async function submitForm() {
+        function validateForm() {
           let valid = true;
           let firstInvalid = null;
 
@@ -1330,7 +1882,8 @@
             }
 
             controls[name].dataset.touched = "true";
-            const isValid = setState(name, false);
+
+            const isValid = setFieldState(name, false);
 
             if (!isValid && !firstInvalid) {
               firstInvalid = controls[name];
@@ -1339,7 +1892,7 @@
             valid = valid && isValid;
           });
 
-          if (!valid) {
+          if (!valid && firstInvalid) {
             firstInvalid.focus();
 
             const invalidField = firstInvalid.closest(".field");
@@ -1348,16 +1901,49 @@
             requestAnimationFrame(() => {
               invalidField.classList.add("shake");
             });
-
-            return;
           }
+
+          return valid;
+        }
+
+        function openReview() {
+          const fullFeedback = feedback.value.trim();
+          const preview =
+            fullFeedback.length > 180
+              ? `${fullFeedback.slice(0, 180)}…`
+              : fullFeedback;
+
+          $("#reviewDepartment").textContent = department.value;
+          $("#reviewAnonymous").textContent = anonymous.checked
+            ? "Anonymous"
+            : `From ${controls.name.value.trim()}`;
+          $("#reviewAttachments").textContent =
+            `${files.length} of ${MAX_UPLOADS}`;
+          $("#reviewFeedback").textContent = preview;
+
+          reviewModal.classList.add("open");
+          reviewModal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+
+          setTimeout(() => reviewConfirm.focus(), 50);
+        }
+
+        function closeReview() {
+          reviewModal.classList.remove("open");
+          reviewModal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          pendingSubmission = false;
+        }
+
+        async function performSubmission() {
+          closeReview();
 
           submit.disabled = true;
           submit.classList.add("loading");
-          buttonText.textContent = "Submitting feedback...";
+          buttonText.textContent = "Submitting feedback…";
           buttonIcon.style.display = "none";
 
-          // Demo mode: no email or server request is made.
+          // Demo mode. Replace this delay with the email request later.
           await new Promise((resolve) => setTimeout(resolve, 1200));
 
           submit.classList.remove("loading");
@@ -1367,12 +1953,23 @@
           buttonIcon.innerHTML = '<path d="m5 12 4 4L19 6"/>';
 
           localStorage.removeItem("internalFeedbackDraft");
+          setDraftState("saved", "Feedback submitted");
 
           await new Promise((resolve) => setTimeout(resolve, 500));
 
+          const employeeName = controls.name.value.trim();
+
+          $("#successTitle").textContent =
+            anonymous.checked || !employeeName
+              ? "Thank you!"
+              : `Thanks, ${employeeName.split(/\s+/)[0]}!`;
+
           $("#successText").textContent = anonymous.checked
-            ? "Thank you. Your anonymous feedback has been submitted."
-            : "Thank you. Your feedback has been submitted successfully.";
+            ? "Your anonymous feedback has been submitted successfully."
+            : "Your feedback has been submitted successfully.";
+
+          $("#successRoute").textContent =
+            `Routed to the ${department.value} team for review.`;
 
           formView.style.display = "none";
           successPanel.classList.remove("active");
@@ -1380,46 +1977,183 @@
           successPanel.classList.add("active");
         }
 
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          submitForm();
+        Object.entries(controls).forEach(([name, control]) => {
+          control.addEventListener("input", () => {
+            if (
+              control.dataset.touched === "true" ||
+              control.value.trim()
+            ) {
+              setFieldState(name, true);
+            }
+
+            if (name === "feedback") {
+              counter.textContent = `${control.value.length} / 1000`;
+              resizeFeedback();
+              updateDetailLevel();
+            }
+
+            saveDraft();
+          });
+
+          control.addEventListener("blur", () => {
+            control.dataset.touched = "true";
+            setFieldState(name, true);
+          });
+
+          control.addEventListener("change", () => {
+            if (name === "department") {
+              control.classList.toggle(
+                "has-value",
+                Boolean(control.value),
+              );
+              updateDepartmentRouting();
+            }
+
+            control.dataset.touched = "true";
+            setFieldState(name, true);
+            saveDraft();
+          });
         });
+
+        anonymous.addEventListener("change", () => {
+          syncAnonymous();
+          saveDraft();
+        });
+
+        const hints = [
+          "Tell us what happened, what you expected, and what could improve.",
+          "Describe the situation and its impact.",
+          "Share an idea that would make the process easier.",
+          "What would make your day-to-day work smoother?",
+          "Is there a process, tool or interaction we could improve?",
+        ];
+
+        let hintIndex = 0;
+
+        setInterval(() => {
+          if (!feedback.value) {
+            hintIndex = (hintIndex + 1) % hints.length;
+
+            $("#feedbackHint").animate(
+              [{ opacity: 0 }, { opacity: 1 }],
+              { duration: 350 },
+            );
+
+            $("#feedbackHint").textContent = hints[hintIndex];
+          }
+        }, 3500);
+
+        fileInput.addEventListener("change", (event) => {
+          addFiles(event.target.files);
+        });
+
+        ["dragenter", "dragover"].forEach((eventName) => {
+          dropzone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            dropzone.classList.add("drag");
+          });
+        });
+
+        ["dragleave", "drop"].forEach((eventName) => {
+          dropzone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            dropzone.classList.remove("drag");
+          });
+        });
+
+        dropzone.addEventListener("drop", (event) => {
+          addFiles(event.dataTransfer.files);
+        });
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (!validateForm()) {
+            return;
+          }
+
+          pendingSubmission = true;
+          openReview();
+        });
+
+        reviewConfirm.addEventListener("click", () => {
+          if (!pendingSubmission) return;
+
+          pendingSubmission = false;
+          performSubmission();
+        });
+
+        reviewBack.addEventListener("click", closeReview);
+
+        $$("[data-close-review]").forEach((element) => {
+          element.addEventListener("click", closeReview);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            reviewModal.classList.contains("open")
+          ) {
+            closeReview();
+          }
+        });
+
         $("#newBtn").addEventListener("click", () => {
           form.reset();
           files = [];
           fileInput.value = "";
+          showUploadMessage("");
           renderFiles();
-          Object.values(controls).forEach((c) => {
-            delete c.dataset.touched;
-            c.classList.remove("has-value");
+
+          Object.values(controls).forEach((control) => {
+            delete control.dataset.touched;
+            control.classList.remove("has-value");
           });
-          $$(".field").forEach((f) =>
-            f.classList.remove("valid", "invalid", "shake"),
-          );
-          $$(".status").forEach((s) => (s.innerHTML = ""));
-          Object.entries(defaults).forEach(
-            ([n, m]) => (field(n).querySelector(".message").textContent = m),
-          );
+
+          $$(".field").forEach((fieldElement) => {
+            fieldElement.classList.remove("valid", "invalid", "shake");
+          });
+
+          $$(".status").forEach((status) => {
+            status.innerHTML = "";
+          });
+
+          Object.entries(defaults).forEach(([name, message]) => {
+            getField(name).querySelector(".message").textContent = message;
+          });
+
           feedback.style.height = "180px";
           counter.textContent = "0 / 1000";
+          updateDetailLevel();
+          updateDepartmentRouting();
+
           submit.disabled = false;
-          submit.classList.remove("success");
+          submit.classList.remove("loading", "success");
           buttonText.textContent = "Submit feedback";
           buttonIcon.style.display = "block";
-          buttonIcon.innerHTML = '<path d="m5 12 14 0M13 6l6 6-6 6"/>';
+          buttonIcon.innerHTML =
+            '<path d="m5 12 14 0M13 6l6 6-6 6"/>';
+
           successPanel.classList.remove("active");
           formView.style.display = "block";
-          syncType();
-          syncAnon();
+
+          syncAnonymous();
+
           localStorage.removeItem("internalFeedbackDraft");
+          setDraftState("", "No unsaved changes");
+
           controls.name.focus();
         });
-        load();
-        syncType();
-        syncAnon();
-        window.addEventListener("load", () =>
-          setTimeout(() => loader.classList.add("hidden"), 650),
-        );
+
+        loadDraft();
+        syncAnonymous();
+        updateDepartmentRouting();
+        revealSections();
+
+        window.addEventListener("load", () => {
+          setTimeout(() => loader.classList.add("hidden"), 650);
+        });
+
         setTimeout(() => loader.classList.add("hidden"), 2200);
       })();
     </script>
