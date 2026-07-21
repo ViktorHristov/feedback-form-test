@@ -850,69 +850,6 @@
         transform: translateY(0);
       }
 
-      .anonymous-status {
-        display: inline-flex;
-        align-items: center;
-        width: fit-content;
-        margin-top: 8px;
-        padding: 5px 8px;
-        border-radius: 999px;
-        background: var(--primarySoft);
-        color: var(--primary2);
-        font-size: 11px;
-        font-weight: 700;
-        transition: var(--ease);
-      }
-
-      .anonymous-status.active {
-        background: var(--successSoft);
-        color: var(--success);
-      }
-
-      .routing-note {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        min-height: 40px;
-        margin-top: -8px;
-        padding: 10px 13px;
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        background: var(--solid);
-        color: var(--muted);
-        font-size: 12px;
-        transition: var(--ease);
-      }
-
-      .routing-dot {
-        width: 9px;
-        height: 9px;
-        flex: 0 0 auto;
-        border-radius: 50%;
-        background: #94a3b8;
-        box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.12);
-      }
-
-      .routing-note[data-team="Scripting"] .routing-dot {
-        background: #2563eb;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-      }
-
-      .routing-note[data-team="QA"] .routing-dot {
-        background: #0d9f6e;
-        box-shadow: 0 0 0 4px rgba(13, 159, 110, 0.12);
-      }
-
-      .routing-note[data-team="COPS"] .routing-dot {
-        background: #d97706;
-        box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
-      }
-
-      .routing-note[data-team="DP"] .routing-dot {
-        background: #7c3aed;
-        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
-      }
-
       .counter-wrap {
         display: inline-flex;
         align-items: center;
@@ -994,38 +931,6 @@
           opacity: 0.35;
         }
       }
-
-      .success-illustration {
-        width: 112px;
-        margin: 0 auto 18px;
-        color: var(--success);
-        opacity: 0;
-        transform: translateY(10px);
-        animation: successIllustrationIn 0.55s 0.35s ease forwards;
-      }
-
-      .success-illustration svg {
-        width: 100%;
-        height: auto;
-      }
-
-      @keyframes successIllustrationIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .success-route {
-        width: fit-content;
-        max-width: 100%;
-        margin: 18px auto 0;
-        padding: 9px 12px;
-        border-radius: 999px;
-        background: var(--primarySoft);
-        color: var(--primary2);
-        font-size: 12px;
-        font-weight: 700;
       }
 
       .review-modal {
@@ -1212,9 +1117,6 @@
               <div class="switch-copy">
                 <strong>Submit anonymously</strong>
                 <small>Your name and email will not be stored.</small>
-                <span class="anonymous-status" id="anonymousStatus" aria-live="polite">
-                  Identified submission
-                </span>
               </div>
               <label class="switch"
                 ><input id="anonymous" type="checkbox" /><span
@@ -1312,13 +1214,6 @@
               </div>
             </div>
 
-            <div class="routing-note" id="routingNote" aria-live="polite">
-              <span class="routing-dot" aria-hidden="true"></span>
-              <span id="routingText">
-                Select a department to see where the feedback will be routed.
-              </span>
-            </div>
-
             <div class="field section-reveal" data-field="feedback" data-animate-section>
               <div class="field-shell">
                 <textarea
@@ -1359,7 +1254,7 @@
                 <input
                   id="fileInput"
                   type="file"
-                  accept="image/*,.pdf"
+                  accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf"
                   multiple
                 />
                 <div class="upload-illustration" aria-hidden="true">
@@ -1440,16 +1335,8 @@
                 <path d="m5 12 4 4L19 6" />
               </svg>
             </div>
-            <div class="success-illustration" aria-hidden="true">
-              <svg viewBox="0 0 80 60" fill="none">
-                <rect x="8" y="10" width="64" height="40" rx="12" stroke="currentColor" stroke-width="2"></rect>
-                <path d="M22 25h36M22 34h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                <path d="m49 42 5 5 10-12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </div>
             <h2 id="successTitle">Feedback submitted</h2>
             <p id="successText">Thank you for helping us improve.</p>
-            <div class="success-route" id="successRoute"></div>
             <button class="new-btn" id="newBtn" type="button">
               Submit another response
             </button>
@@ -1505,14 +1392,11 @@
         const buttonText = $("#buttonText");
         const buttonIcon = $("#buttonIcon");
         const anonymous = $("#anonymous");
-        const anonymousStatus = $("#anonymousStatus");
         const identityWrap = $("#identityWrap");
         const feedback = $("#feedback");
         const counter = $("#counter");
         const detailLevel = $("#detailLevel");
         const department = $("#department");
-        const routingNote = $("#routingNote");
-        const routingText = $("#routingText");
         const draftStatus = $("#draftStatus");
         const draftStatusText = $("#draftStatusText");
         const fileInput = $("#fileInput");
@@ -1720,7 +1604,6 @@
             feedback.value = draft.feedback || "";
 
             syncAnonymous();
-            updateDepartmentRouting();
             department.classList.toggle("has-value", Boolean(department.value));
             counter.textContent = `${feedback.value.length} / 1000`;
 
@@ -1739,31 +1622,9 @@
           controls.name.disabled = isAnonymous;
           controls.email.disabled = isAnonymous;
 
-          anonymousStatus.textContent = isAnonymous
-            ? "Anonymous mode enabled"
-            : "Identified submission";
-
-          anonymousStatus.classList.toggle("active", isAnonymous);
-
           ["name", "email"].forEach((name) => {
             getField(name).classList.remove("valid", "invalid");
           });
-        }
-
-        function updateDepartmentRouting() {
-          const team = department.value;
-          routingNote.dataset.team = team || "";
-
-          const routes = {
-            Scripting: "This feedback will be routed to the Scripting team.",
-            QA: "This feedback will be routed to the QA team.",
-            COPS: "This feedback will be routed to the COPS team.",
-            DP: "This feedback will be routed to the DP team.",
-          };
-
-          routingText.textContent =
-            routes[team] ||
-            "Select a department to see where the feedback will be routed.";
         }
 
         function revealSections() {
@@ -1800,6 +1661,24 @@
           }
 
           incomingFiles.slice(0, remainingSlots).forEach((file) => {
+            const allowedMimeTypes = [
+              "image/png",
+              "image/jpeg",
+              "application/pdf",
+            ];
+            const allowedExtensions = ["png", "jpg", "jpeg", "pdf"];
+            const extension = file.name.split(".").pop()?.toLowerCase() || "";
+
+            if (
+              !allowedMimeTypes.includes(file.type) ||
+              !allowedExtensions.includes(extension)
+            ) {
+              showUploadMessage(
+                `${file.name} is not supported. Only PNG, JPG and PDF files are allowed.`,
+              );
+              return;
+            }
+
             if (file.size > MAX_FILE_SIZE) {
               showUploadMessage(`${file.name} is larger than 5 MB.`);
               return;
@@ -1968,9 +1847,6 @@
             ? "Your anonymous feedback has been submitted successfully."
             : "Your feedback has been submitted successfully.";
 
-          $("#successRoute").textContent =
-            `Routed to the ${department.value} team for review.`;
-
           formView.style.display = "none";
           successPanel.classList.remove("active");
           void successPanel.offsetWidth;
@@ -2006,7 +1882,6 @@
                 "has-value",
                 Boolean(control.value),
               );
-              updateDepartmentRouting();
             }
 
             control.dataset.touched = "true";
@@ -2125,7 +2000,6 @@
           feedback.style.height = "180px";
           counter.textContent = "0 / 1000";
           updateDetailLevel();
-          updateDepartmentRouting();
 
           submit.disabled = false;
           submit.classList.remove("loading", "success");
