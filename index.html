@@ -300,6 +300,25 @@
       .field-shell {
         position: relative;
       }
+
+      /* Draw the focused outline above the input so none of the top border is clipped. */
+      .field-shell::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid transparent;
+        border-radius: var(--lg);
+        pointer-events: none;
+        transition:
+          border-color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      .field-shell:focus-within::after {
+        border-color: var(--primary);
+        box-shadow: var(--focus);
+      }
+
       .field-control {
         width: 100%;
         min-height: 60px;
@@ -318,9 +337,9 @@
         background: var(--solid);
       }
       .field-control:focus {
-        border-color: var(--primary);
-        box-shadow: var(--focus);
-        transform: translateY(-1px);
+        border-color: transparent;
+        box-shadow: none;
+        transform: none;
         background: var(--solid);
       }
       .field-label {
@@ -380,6 +399,16 @@
       .field.invalid .field-control {
         border-color: var(--danger);
         box-shadow: 0 0 0 4px var(--dangerSoft);
+      }
+
+      .field.invalid .field-shell:focus-within::after {
+        border-color: var(--danger);
+        box-shadow: 0 0 0 4px var(--dangerSoft);
+      }
+
+      .field.invalid .field-control:focus {
+        border-color: transparent;
+        box-shadow: none;
       }
       .field.valid .field-control:not(:focus) {
         border-color: rgba(13, 159, 110, 0.45);
@@ -448,6 +477,10 @@
           transform: translateY(8px);
         }
       }
+      .upload-section {
+        margin-inline: 4px;
+      }
+
       .dropzone {
         position: relative;
         padding: 24px;
@@ -1251,7 +1284,7 @@
               </div>
             </div>
 
-            <section class="section-reveal" data-animate-section>
+            <section class="section-reveal upload-section" data-animate-section>
               <h2 class="section-title">Optional screenshot or file</h2>
               <div class="dropzone" id="dropzone">
                 <input
