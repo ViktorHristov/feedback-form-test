@@ -395,17 +395,25 @@
         color: var(--danger);
         background: var(--dangerSoft);
       }
-      .field.invalid .field-control {
+      .field.invalid .field-control,
+      .field.invalid .department-trigger {
         border-color: var(--danger);
         box-shadow: 0 0 0 4px var(--dangerSoft);
       }
 
-      .field.invalid .field-shell:focus-within::after {
+      .field.invalid .field-shell:focus-within::after,
+      .field.invalid .department-shell::after {
         border-color: var(--danger);
         box-shadow: 0 0 0 4px var(--dangerSoft);
       }
 
-      .field.invalid .field-control:focus {
+      .field.invalid .department-shell.open::after {
+        border-color: var(--danger);
+        box-shadow: 0 0 0 4px var(--dangerSoft);
+      }
+
+      .field.invalid .field-control:focus,
+      .field.invalid .department-trigger:focus {
         border-color: transparent;
         box-shadow: none;
       }
@@ -521,6 +529,15 @@
         border-bottom-right-radius: 0;
         border-bottom-color: var(--border);
         box-shadow: none;
+      }
+
+      .field.invalid .department-shell.open .department-trigger {
+        border-color: var(--danger);
+        border-bottom-color: var(--danger);
+      }
+
+      .field.invalid .department-menu.open {
+        border-color: var(--danger);
       }
 
       .department-menu {
