@@ -931,6 +931,9 @@
           opacity: 0.35;
         }
       }
+
+      .review-modal[hidden] {
+        display: none !important;
       }
 
       .review-modal {
@@ -1345,7 +1348,7 @@
       </section>
     </main>
 
-    <div class="review-modal" id="reviewModal" aria-hidden="true">
+    <div class="review-modal" id="reviewModal" aria-hidden="true" hidden>
       <div class="review-backdrop" data-close-review></div>
       <section class="review-dialog" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
         <button class="review-close" type="button" aria-label="Close review" data-close-review>×</button>
@@ -1800,6 +1803,7 @@
             `${files.length} of ${MAX_UPLOADS}`;
           $("#reviewFeedback").textContent = preview;
 
+          reviewModal.hidden = false;
           reviewModal.classList.add("open");
           reviewModal.setAttribute("aria-hidden", "false");
           document.body.style.overflow = "hidden";
@@ -1810,6 +1814,7 @@
         function closeReview() {
           reviewModal.classList.remove("open");
           reviewModal.setAttribute("aria-hidden", "true");
+          reviewModal.hidden = true;
           document.body.style.overflow = "";
           pendingSubmission = false;
         }
