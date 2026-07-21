@@ -1596,11 +1596,13 @@
             );
 
             if (!draft) {
+              anonymous.checked = false;
+              syncAnonymous();
               setDraftState("", "No unsaved changes");
               return;
             }
 
-            anonymous.checked = Boolean(draft.anonymous);
+            anonymous.checked = false;
             controls.name.value = draft.name || "";
             controls.email.value = draft.email || "";
             department.value = draft.department || "";
@@ -2024,6 +2026,7 @@
           controls.name.focus();
         });
 
+        anonymous.checked = false;
         loadDraft();
         syncAnonymous();
 
