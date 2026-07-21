@@ -428,12 +428,202 @@
       .field.valid .message {
         color: var(--success);
       }
-      select.field-control {
-        appearance: none;
-        cursor: pointer;
-        padding-right: 48px;
+      .field[data-field="department"] {
+        position: relative;
+        z-index: 20;
       }
-      .arrow {
+
+      .department-native {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .department-shell {
+        position: relative;
+      }
+
+      .department-trigger {
+        width: 100%;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 52px 0 48px;
+        border: 1px solid var(--border);
+        border-radius: var(--lg);
+        background: var(--solid);
+        color: var(--muted);
+        font: inherit;
+        font-size: 15px;
+        text-align: left;
+        cursor: pointer;
+        outline: 0;
+        transition:
+          border-color 0.18s ease,
+          border-radius 0.18s ease,
+          background 0.18s ease,
+          color 0.18s ease;
+      }
+
+      .department-trigger:hover {
+        border-color: var(--border2);
+        background: var(--solid);
+      }
+
+      .department-trigger.has-value {
+        color: var(--text);
+      }
+
+      .department-trigger-label {
+        display: block;
+        line-height: 1;
+      }
+
+      .department-trigger.has-value .department-trigger-label {
+        position: absolute;
+        left: 48px;
+        top: 9px;
+        color: var(--primary2);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .department-trigger-value {
+        display: none;
+      }
+
+      .department-trigger.has-value .department-trigger-value {
+        display: block;
+        padding-top: 15px;
+        color: var(--text);
+      }
+
+      .department-shell:focus-within::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        border: 1px solid var(--primary);
+        border-radius: var(--lg);
+        box-shadow: var(--focus);
+        pointer-events: none;
+      }
+
+      .department-shell.open::after {
+        inset: 0;
+        border-radius: var(--lg);
+      }
+
+      .department-shell.open .department-trigger {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-color: var(--border);
+        box-shadow: none;
+      }
+
+      .department-menu {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        gap: 5px;
+        max-height: 0;
+        padding: 0 8px;
+        margin-top: -1px;
+        overflow: hidden;
+        border: 1px solid transparent;
+        border-top: 0;
+        border-radius: 0 0 var(--lg) var(--lg);
+        background: var(--solid);
+        opacity: 0;
+        visibility: hidden;
+        transform: scaleY(0.98);
+        transform-origin: top;
+        transition:
+          max-height 0.22s ease,
+          padding 0.22s ease,
+          border-color 0.16s ease,
+          opacity 0.16s ease,
+          visibility 0.16s ease,
+          transform 0.16s ease;
+      }
+
+      .department-menu.open {
+        max-height: 260px;
+        padding: 8px;
+        border-color: var(--border);
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+      }
+
+      .department-option {
+        width: 100%;
+        min-height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 13px;
+        border: 0;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--text);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          background 0.16s ease,
+          color 0.16s ease,
+          transform 0.16s ease;
+      }
+
+      .department-option:hover,
+      .department-option:focus-visible {
+        background: var(--primarySoft);
+        color: var(--primary2);
+        outline: none;
+        transform: translateX(2px);
+      }
+
+      .department-option.selected {
+        background: var(--primarySoft);
+        color: var(--primary2);
+      }
+
+      .department-option-check {
+        width: 20px;
+        height: 20px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--successSoft);
+        color: var(--success);
+        opacity: 0;
+        transform: scale(0.75);
+        transition: 0.16s ease;
+      }
+
+      .department-option.selected .department-option-check {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .department-shell.open .arrow {
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .department-trigger,
+        .department-menu {
+          background: var(--solid);
+        }
+      }
+
+.arrow {
         position: absolute;
         right: 17px;
         top: 50%;
@@ -1145,7 +1335,6 @@
           <h1 class="heading" id="title">Share your feedback</h1>
           <p class="intro">
             Help us improve our workplace experience.
-            Clear, constructive feedback reaches the right team faster.
           </p>
           <form class="form form-spaced" id="form" novalidate>
                         <div class="switch-row section-reveal" data-animate-section>
@@ -1216,33 +1405,57 @@
               </div>
             </div>
             <div class="field section-reveal" data-field="department" data-animate-section>
-              <div class="field-shell">
-                <select class="field-control" id="department" name="department">
+              <div class="department-shell" id="departmentShell">
+                <select
+                  class="department-native"
+                  id="department"
+                  name="department"
+                  aria-hidden="true"
+                  tabindex="-1"
+                >
                   <option value="" selected disabled></option>
                   <option>Scripting</option>
                   <option>QA</option>
                   <option>COPS</option>
-                  <option>DP</option></select
-                ><label class="field-label" for="department">Department</label
-                ><svg
-                  class="icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
+                  <option>DP</option>
+                </select>
+
+                <button
+                  class="department-trigger"
+                  id="departmentTrigger"
+                  type="button"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="departmentMenu"
                 >
-                  <path
-                    d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1M14 10h1M9 14h1M14 14h1"
-                  /></svg
-                ><svg
-                  class="arrow"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="m7 10 5 5 5-5" /></svg
-                ><span class="status"></span>
+                  <span class="department-trigger-label">Department</span>
+                  <span class="department-trigger-value" id="departmentValue"></span>
+                </button>
+
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1M14 10h1M9 14h1M14 14h1" />
+                </svg>
+
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m7 10 5 5 5-5" />
+                </svg>
+
+                <span class="status"></span>
+
+                <div class="department-menu" id="departmentMenu" role="listbox" aria-label="Department">
+                  <button class="department-option" type="button" role="option" data-value="Scripting">
+                    <span>Scripting</span><span class="department-option-check">✓</span>
+                  </button>
+                  <button class="department-option" type="button" role="option" data-value="QA">
+                    <span>QA</span><span class="department-option-check">✓</span>
+                  </button>
+                  <button class="department-option" type="button" role="option" data-value="COPS">
+                    <span>COPS</span><span class="department-option-check">✓</span>
+                  </button>
+                  <button class="department-option" type="button" role="option" data-value="DP">
+                    <span>DP</span><span class="department-option-check">✓</span>
+                  </button>
+                </div>
               </div>
               <div class="meta">
                 <span class="message">Select the most relevant team.</span>
@@ -1432,6 +1645,11 @@
         const counter = $("#counter");
         const detailLevel = $("#detailLevel");
         const department = $("#department");
+        const departmentShell = $("#departmentShell");
+        const departmentTrigger = $("#departmentTrigger");
+        const departmentMenu = $("#departmentMenu");
+        const departmentValue = $("#departmentValue");
+        const departmentOptions = $$(".department-option");
         const draftStatus = $("#draftStatus");
         const draftStatusText = $("#draftStatusText");
         const fileInput = $("#fileInput");
@@ -1641,7 +1859,7 @@
             feedback.value = draft.feedback || "";
 
             syncAnonymous();
-            department.classList.toggle("has-value", Boolean(department.value));
+            syncDepartmentDropdown();
             counter.textContent = `${feedback.value.length} / 1000`;
 
             resizeFeedback();
@@ -1892,6 +2110,81 @@
           successPanel.classList.add("active");
         }
 
+        function syncDepartmentDropdown() {
+          const value = department.value;
+          const hasValue = Boolean(value);
+
+          departmentTrigger.classList.toggle("has-value", hasValue);
+          departmentValue.textContent = value;
+
+          departmentOptions.forEach((option) => {
+            const selected = option.dataset.value === value;
+            option.classList.toggle("selected", selected);
+            option.setAttribute("aria-selected", String(selected));
+          });
+        }
+
+        function openDepartmentDropdown() {
+          departmentShell.classList.add("open");
+          departmentMenu.classList.add("open");
+          departmentTrigger.setAttribute("aria-expanded", "true");
+
+          const target =
+            departmentMenu.querySelector(".department-option.selected") ||
+            departmentOptions[0];
+
+          requestAnimationFrame(() => target.focus());
+        }
+
+        function closeDepartmentDropdown(restoreFocus = false) {
+          departmentShell.classList.remove("open");
+          departmentMenu.classList.remove("open");
+          departmentTrigger.setAttribute("aria-expanded", "false");
+
+          if (restoreFocus) {
+            departmentTrigger.focus();
+          }
+        }
+
+        departmentTrigger.addEventListener("click", () => {
+          departmentMenu.classList.contains("open")
+            ? closeDepartmentDropdown()
+            : openDepartmentDropdown();
+        });
+
+        departmentOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            department.value = option.dataset.value;
+            department.dispatchEvent(new Event("change", { bubbles: true }));
+            syncDepartmentDropdown();
+            closeDepartmentDropdown(true);
+          });
+        });
+
+        departmentMenu.addEventListener("keydown", (event) => {
+          const currentIndex = departmentOptions.indexOf(document.activeElement);
+
+          if (event.key === "ArrowDown") {
+            event.preventDefault();
+            departmentOptions[(currentIndex + 1) % departmentOptions.length].focus();
+          } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            departmentOptions[
+              (currentIndex - 1 + departmentOptions.length) %
+                departmentOptions.length
+            ].focus();
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            closeDepartmentDropdown(true);
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".department-shell")) {
+            closeDepartmentDropdown();
+          }
+        });
+
         Object.entries(controls).forEach(([name, control]) => {
           control.addEventListener("input", () => {
             if (
@@ -1917,10 +2210,7 @@
 
           control.addEventListener("change", () => {
             if (name === "department") {
-              control.classList.toggle(
-                "has-value",
-                Boolean(control.value),
-              );
+              syncDepartmentDropdown();
             }
 
             control.dataset.touched = "true";
@@ -2061,6 +2351,7 @@
         anonymous.checked = false;
         loadDraft();
         syncAnonymous();
+        syncDepartmentDropdown();
 
         revealSections();
 
