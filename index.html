@@ -2359,6 +2359,11 @@
 
           syncAnonymous();
 
+          // form.reset() clears the native <select>, so refresh the custom
+          // department UI as well to avoid showing the previous response.
+          closeDepartmentDropdown();
+          syncDepartmentDropdown();
+
           localStorage.removeItem("internalFeedbackDraft");
           setDraftState("", "No unsaved changes");
 
